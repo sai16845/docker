@@ -4,7 +4,7 @@ pipeline
     environment
     {
         dockerImage=''
-        registry='sai16845/pyimage'
+        registry='sai16845/pyimage2'
         registryCredentials='dockerhub_id'
     }
     stages
