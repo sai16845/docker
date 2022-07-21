@@ -14,8 +14,8 @@ pipeline
         {
             steps
             {
-                sh 'docker build -t myjenkinsimg .'
-                sh 'docker tag myjenkinsimg sai16845/myjenimg'
+                sh 'docker build -t myjenkinsimg1 .'
+                sh 'docker tag myjenkinsimg1 sai16845/myjenimg1'
                 withDockerRegistry(credentialsId: 'dockerhub_id', url: '') {
                 sh 'docker push sai16845/myjenimg'}
             }
