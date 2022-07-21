@@ -1,46 +1,25 @@
 pipeline
 {
     agent any
-    environment
-    {
-        dockerImage=''
-        registry='sai16845/pypyimage'
-        registryCredentials='dockerhub_id'
-    }
     stages
     {
-        stage('Checkout')
+        stage('Git')
         {
             steps
             {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://bitbucket.org/ananthkannan/mypythonrepo/']]])
+                git 'https://github.com/ianmiell/simple-dockerfile.git'
             }
         }
-        stage('Build Docker img')
+        stage('BUilding image')
         {
             steps
             {
-                script
-                {
-                    dockerImage=docker.build registry
-                    
-                }
+                sh 'docker build -t myjenkinsimg .'
+                sh 'docker tag myjenkinsimg sai16845/myjenimg'
+                withDockerRegistry(credentialsId: 'dockerhub_id', url: '') {
+                sh 'docker push sai16845/myjenimg'}
             }
         }
-        stage('Uploading image')
-        {
-            steps
-            {
-                script
-                {
-                    docker.withRegistry( '',registryCredentials ){
-                        dockerImage.push()
-                    }
-                    
-                    
-                }
-            }
-        }
+        
     }
 }
-    
