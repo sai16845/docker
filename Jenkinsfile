@@ -7,7 +7,7 @@ pipeline
         {
             steps
             {
-                git 'https://github.com/ianmiell/simple-dockerfile.git'
+                echo 'Hello'
             }
         }
         
